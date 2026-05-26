@@ -1,18 +1,21 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/{APP-NAME}/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/{APP-NAME}/tree/main)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/giantswarm/{APP-NAME}/badge)](https://securityscorecards.dev/viewer/?uri=github.com/giantswarm/{APP-NAME})
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/envoy-gateway-crds-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/envoy-gateway-crds-app/tree/main)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/giantswarm/envoy-gateway-crds-app/badge)](https://securityscorecards.dev/viewer/?uri=github.com/giantswarm/envoy-gateway-crds-app)
 
-[Guide about how to manage an app on Giant Swarm](https://handbook.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
+# envoy-gateway-crds chart
 
-# {APP-NAME} chart
-
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here, we define the {APP-NAME} chart with its templates and default configuration.
+Giant Swarm offers an envoy-gateway-crds app that installs the Envoy Gateway CRDs in workload clusters.
 
 **What is this app?**
 
+This app installs the Custom Resource Definitions (CRDs) for [Envoy Gateway](https://gateway.envoyproxy.io/). These CRDs define resources such as `EnvoyProxy`, `BackendTrafficPolicy`, `ClientTrafficPolicy`, `SecurityPolicy`, and others that Envoy Gateway uses to configure the proxy.
+
 **Why did we add it?**
 
+The Envoy Gateway CRDs are distributed separately from the main `envoy-gateway-app` so they can be managed independently. This follows the same pattern as Gateway API CRDs, allowing CRDs to be installed and upgraded without touching the controller.
+
 **Who can use it?**
+
+It is intended for platform teams managing Envoy Gateway on Giant Swarm clusters. It is typically installed as part of the `gateway-api-bundle`.
 
 ## Installing
 
@@ -23,46 +26,24 @@ There are several ways to install this app onto a workload cluster.
 
 ## Configuring
 
-### values.yaml
-
-**This is an example of a values file you could upload using our web interface.**
-
-```yaml
-# values.yaml
-
-```
-
-### Sample App CR and ConfigMap for the management cluster
-
-If you have access to the Kubernetes API on the management cluster, you could create the App CR and ConfigMap directly.
-
-Here is an example that would install the app to workload cluster `abc12`:
-
-```yaml
-# appCR.yaml
-
-```
-
-```yaml
-# user-values-configmap.yaml
-
-```
-
-See our [full reference on how to configure apps](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/app-configuration/) for more details.
+This chart has no configurable values. It only installs CRDs.
 
 ## Compatibility
 
-This app has been tested to work with the following workload cluster release versions:
+| envoy-gateway-crds-app | Envoy Gateway |
+| --- | --- |
+| 1.8.x | 1.8.x |
 
-- _add release version_
+## Development
 
-## Limitations
+The CRDs are extracted from the upstream `gateway-helm` chart using vendir and a sync script:
 
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
+```bash
+./sync/sync.sh
+```
 
-- _add limitation_
+This fetches the upstream chart into `vendor/` and extracts only the Envoy Gateway CRDs into `helm/envoy-gateway-crds/templates/crds/`.
 
 ## Credit
 
-- {APP HELM REPOSITORY}
+- https://github.com/envoyproxy/gateway
