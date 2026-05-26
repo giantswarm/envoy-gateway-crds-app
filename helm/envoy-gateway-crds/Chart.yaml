@@ -2,20 +2,14 @@
 # for details and background.
 
 apiVersion: v2
-
 appVersion: 1.8.0
-
 name: envoy-gateway-crds
-
 description: Envoy Gateway CRDs
-
 # URL of the GitHub repository that is the source of this Chart.yaml file.
 home: https://github.com/giantswarm/envoy-gateway-crds-app
-
 icon: https://s.giantswarm.io/app-icons/giantswarm/1/light.svg
-
 sources:
-- https://github.com/envoyproxy/gateway
+  - https://github.com/envoyproxy/gateway
 version: 0.0.0-dev
 annotations:
   io.giantswarm.application.audience: all
