@@ -7,4 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/giantswarm/envoy-gateway-crds-app/tree/main
+## [0.1.0] - 2026-05-27
+
+- Initial release including Envoy Gateway CRDs v1.8.0
+
+[Unreleased]: https://github.com/giantswarm/envoy-gateway-crds-app/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/giantswarm/envoy-gateway-crds-app/releases/tag/v0.1.0
